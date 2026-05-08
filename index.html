@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Soluciones Marítimas Perú - Asesoría y gestión de trámites marítimos, portuarios y fluviales en el Perú."/>
+  <meta name="theme-color" content="#0f0d1d"/>
+  <title>Soluciones Marítimas Perú</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0f0d1d;
+      --navy2:    #1a1830;
+      --navy3:    #252240;
+      --gold:     #c9a84c;
+      --gold2:    #e8c76a;
+      --gold3:    #f5e0a0;
+      --white:    #f0eeea;
+      --muted:    #9a97b0;
+      --accent:   #2a6496;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      background: rgba(15, 13, 29, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+    .nav-brand span { display: block; font-size: 0.6rem; color: var(--muted); font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; font-family: 'Barlow', sans-serif; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--white); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.05em; font-weight: 500; text-transform: uppercase; opacity: 0.8; transition: color 0.2s, opacity 0.2s; }
+    .nav-links a:hover { color: var(--gold); opacity: 1; }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.5rem 1.2rem;
+      border-radius: 2px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold2); }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; display: block; }
+    .mobile-menu { display: none; flex-direction: column; gap: 0; list-style: none; position: absolute; top: 68px; left: 0; width: 100%; background: var(--navy2); border-bottom: 1px solid rgba(201,168,76,0.2); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { display: block; padding: 1rem 2rem; color: var(--white); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .mobile-menu a:hover { color: var(--gold); background: rgba(201,168,76,0.05); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 2rem 4rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 120%, rgba(42, 100, 150, 0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+        linear-gradient(180deg, #0f0d1d 0%, #0d1a2e 100%);
+    }
+    /* wave lines */
+    .hero-waves {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      opacity: 0.12; pointer-events: none;
+    }
+    .hero-content { position: relative; text-align: center; max-width: 860px; }
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.5;
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    h1 em { font-style: normal; color: var(--gold); }
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.85rem 2rem;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid rgba(201,168,76,0.5);
+      color: var(--gold);
+      padding: 0.85rem 2rem;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, border-color 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); }
+
+    /* anchor line */
+    .anchor-icon {
+      margin: 3rem auto 0;
+      width: 40px; height: 40px;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      animation: bounce 2.5s infinite;
+      color: var(--gold);
+      opacity: 0.6;
+    }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy2);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      text-align: center;
+    }
+    .stat-val {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .stat-lab {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--gold);
+      margin-bottom: 2rem;
+    }
+    .lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 640px;
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios { background: var(--navy2); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--navy3);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 4px;
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 0;
+      background: var(--gold);
+      transition: height 0.4s;
+    }
+    .service-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-4px); }
+    .service-card:hover::before { height: 100%; }
+    .service-icon {
+      font-size: 2rem; margin-bottom: 1rem;
+      display: block;
+    }
+    .service-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.03em;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── NOSOTROS ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-visual-box {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--navy3);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-visual-box::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(42,100,150,0.2), transparent 70%);
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -1rem; right: -1rem;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 1rem 1.2rem;
+      text-align: center;
+      border-radius: 4px;
+    }
+    .about-badge strong {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .about-badge span { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+    .checklist { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      font-size: 0.95rem; color: var(--muted); line-height: 1.5;
+    }
+    .checklist li::before {
+      content: '⚓';
+      color: var(--gold);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── CONTACTO ── */
+    #contacto { background: var(--navy2); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.25rem;
+      background: var(--navy3);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 4px;
+      transition: border-color 0.2s;
+    }
+    .contact-item:hover { border-color: rgba(201,168,76,0.35); }
+    .contact-item-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .contact-item-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .contact-item-val {
+      font-size: 1rem;
+      color: var(--white);
+      font-weight: 500;
+    }
+    .contact-item a { color: var(--white); text-decoration: none; }
+    .contact-item a:hover { color: var(--gold); }
+
+    /* form */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--navy3);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--gold); }
+    .form-group select option { background: var(--navy2); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .btn-send {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      cursor: pointer;
+      padding: 0.9rem 2rem;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    .btn-send:hover { background: var(--gold2); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080715;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+    }
+    .footer-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .footer-tagline { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .footer-links a { color: var(--muted); font-size: 0.8rem; text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.75rem; color: rgba(154,151,176,0.5); }
+    .footer-divider { width: 40px; height: 1px; background: rgba(201,168,76,0.3); margin: 1.5rem auto; }
+
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-visual { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#inicio" class="nav-brand">
+      Soluciones Marítimas Perú
+      <span>Autoridad · Gestión · Mar</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="nav-cta">Consultar</a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="mobile-menu" id="mobileMenu">
+      <li><a href="#servicios" onclick="toggleMenu()">Servicios</a></li>
+      <li><a href="#nosotros" onclick="toggleMenu()">Nosotros</a></li>
+      <li><a href="#contacto" onclick="toggleMenu()">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg"></div>
+    <svg class="hero-waves" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 L1440,120 L0,120 Z" fill="rgba(201,168,76,0.5)"/>
+      <path d="M0,80 C360,40 720,100 1080,60 C1260,40 1380,80 1440,80 L1440,120 L0,120 Z" fill="rgba(42,100,150,0.6)"/>
+    </svg>
+    <div class="hero-content">
+      <p class="hero-eyebrow">⚓ Perú · Pacífico Sur</p>
+      <h1>Expertos en <em>Gestión</em><br>Marítima &amp; Portuaria</h1>
+      <p class="hero-sub">Asesoría integral en trámites, permisos y operaciones marítimas ante DICAPI y las autoridades portuarias del Perú.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary">Solicitar Asesoría</a>
+        <a href="#servicios" class="btn-outline">Ver Servicios</a>
+      </div>
+      <div class="anchor-icon">↓</div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div>
+      <div class="stat-val">+10</div>
+      <div class="stat-lab">Años de Experiencia</div>
+    </div>
+    <div>
+      <div class="stat-val">500+</div>
+      <div class="stat-lab">Trámites Gestionados</div>
+    </div>
+    <div>
+      <div class="stat-val">100%</div>
+      <div class="stat-lab">Compromiso Legal</div>
+    </div>
+    <div>
+      <div class="stat-val">24/7</div>
+      <div class="stat-lab">Atención al Cliente</div>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="section-inner">
+      <p class="section-label fade-up">Lo que ofrecemos</p>
+      <h2 class="fade-up delay-1">Nuestros Servicios</h2>
+      <div class="divider fade-up delay-2"></div>
+      <p class="lead fade-up delay-2">Brindamos soluciones completas en el ámbito marítimo, fluvial y portuario con conocimiento profundo de la normativa DICAPI y la legislación peruana.</p>
+      <div class="services-grid">
+        <div class="service-card fade-up delay-1">
+          <span class="service-icon">🚢</span>
+          <h3>Permisos de Zarpe y Arribo</h3>
+          <p>Gestión de documentos de zarpe y arribo de embarcaciones ante las Capitanías de Puerto en todo el litoral peruano.</p>
+        </div>
+        <div class="service-card fade-up delay-2">
+          <span class="service-icon">📋</span>
+          <h3>Trámites DICAPI</h3>
+          <p>Asesoría y representación en todos los procedimientos ante la Dirección General de Capitanías y Guardacostas del Perú.</p>
+        </div>
+        <div class="service-card fade-up delay-3">
+          <span class="service-icon">⚓</span>
+          <h3>Matrícula de Embarcaciones</h3>
+          <p>Registro e inscripción de embarcaciones pesqueras, de cabotaje y recreativas en el sistema nacional marítimo.</p>
+        </div>
+        <div class="service-card fade-up delay-1">
+          <span class="service-icon">🌊</span>
+          <h3>Gestión Portuaria</h3>
+          <p>Coordinación y gestión de operaciones en puertos nacionales, incluyendo consignación y despacho de naves.</p>
+        </div>
+        <div class="service-card fade-up delay-2">
+          <span class="service-icon">📜</span>
+          <h3>Asesoría Legal Marítima</h3>
+          <p>Orientación jurídica en normativa marítima, convenios internacionales y resoluciones de la autoridad marítima.</p>
+        </div>
+        <div class="service-card fade-up delay-3">
+          <span class="service-icon">🛡️</span>
+          <h3>Certificados y Habilitaciones</h3>
+          <p>Obtención de certificaciones de seguridad, protección ambiental y habilitaciones para tripulantes y embarcaciones.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div>
+          <p class="section-label fade-up">¿Quiénes somos?</p>
+          <h2 class="fade-up delay-1">Comprometidos con<br>el Mar Peruano</h2>
+          <div class="divider fade-up delay-2"></div>
+          <p class="lead fade-up delay-2">Somos un equipo de profesionales especializados en el ámbito marítimo y portuario del Perú, con amplia experiencia en procedimientos ante DICAPI y demás autoridades del sector.</p>
+          <ul class="checklist fade-up delay-3">
+            <li>Conocimiento actualizado de la normativa DICAPI y OMI</li>
+            <li>Atención personalizada para cada cliente y embarcación</li>
+            <li>Red de contactos en los principales puertos del Perú</li>
+            <li>Gestión rápida y eficiente de todos los trámites</li>
+            <li>Transparencia y honestidad en cada proceso</li>
+          </ul>
+          <br/>
+          <a href="#contacto" class="btn-primary fade-up delay-4">Contáctanos Hoy</a>
+        </div>
+        <div class="about-visual fade-up delay-2">
+          <div class="about-visual-box">⚓</div>
+          <div class="about-badge">
+            <strong>+10</strong>
+            <span>Años en el Mar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="section-inner">
+      <p class="section-label fade-up">Estamos aquí para ayudarte</p>
+      <h2 class="fade-up delay-1">Contáctanos</h2>
+      <div class="divider fade-up delay-2"></div>
+      <div class="contact-grid">
+        <div class="contact-info fade-up delay-1">
+          <div class="contact-item">
+            <span class="contact-item-icon">📞</span>
+            <div>
+              <div class="contact-item-label">Teléfono / WhatsApp</div>
+              <div class="contact-item-val"><a href="tel:+51964528553">+51 964 528 553</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-icon">✉️</span>
+            <div>
+              <div class="contact-item-label">Correo Electrónico</div>
+              <div class="contact-item-val"><a href="mailto:solucionesmaritimasperu@gmail.com">solucionesmaritimasperu@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-icon">🌊</span>
+            <div>
+              <div class="contact-item-label">Cobertura</div>
+              <div class="contact-item-val">Litoral Peruano — Pacífico Sur</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-icon">🕐</span>
+            <div>
+              <div class="contact-item-label">Horario de Atención</div>
+              <div class="contact-item-val">Lun – Vie: 8:00 am – 6:00 pm<br/>Sáb: 8:00 am – 1:00 pm</div>
+            </div>
+          </div>
+          <!-- WhatsApp CTA -->
+          <a href="https://wa.me/51964528553?text=Hola,%20me%20gustaría%20consultar%20sobre%20sus%20servicios%20marítimos." target="_blank" class="btn-primary" style="text-align:center; margin-top:0.5rem;">
+            💬 Escribir por WhatsApp
+          </a>
+        </div>
+
+        <div class="fade-up delay-2">
+          <form class="contact-form" id="contactForm" action="https://formspree.io/f/meenraqy" method="POST" onsubmit="sendForm(event)">
+            <div class="form-group">
+              <label for="nombre">Nombre completo</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Juan García" required/>
+            </div>
+            <div class="form-group">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required/>
+            </div>
+            <div class="form-group">
+              <label for="servicio">Servicio de interés</label>
+              <select id="servicio" name="servicio">
+                <option value="">Selecciona un servicio...</option>
+                <option>Permisos de Zarpe y Arribo</option>
+                <option>Trámites DICAPI</option>
+                <option>Matrícula de Embarcaciones</option>
+                <option>Gestión Portuaria</option>
+                <option>Asesoría Legal Marítima</option>
+                <option>Certificados y Habilitaciones</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos en qué podemos ayudarte..."></textarea>
+            </div>
+            <button type="submit" class="btn-send" id="btnSend">Enviar Consulta →</button>
+            <div id="formMsg" style="display:none; margin-top:0.75rem; padding:0.75rem 1rem; border-radius:2px; font-size:0.9rem; text-align:center;"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">Soluciones Marítimas Perú</div>
+    <p class="footer-tagline">Expertos en gestión marítima y portuaria · Litoral Peruano</p>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <p class="footer-copy">© 2025 Soluciones Marítimas Perú · Todos los derechos reservados</p>
+  </footer>
+
+  <!-- BOTÓN FLOTANTE WHATSAPP -->
+  <a href="https://wa.me/51964528553?text=Hola,%20me%20gustaría%20consultar%20sobre%20sus%20servicios%20marítimos."
+     target="_blank"
+     id="wsp-btn"
+     title="Escríbenos por WhatsApp"
+     style="
+       position: fixed;
+       bottom: 28px;
+       right: 28px;
+       z-index: 999;
+       width: 58px;
+       height: 58px;
+       background: #25D366;
+       border-radius: 50%;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+       transition: transform 0.2s, box-shadow 0.2s;
+       text-decoration: none;
+     "
+     onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 24px rgba(37,211,102,0.55)'"
+     onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 16px rgba(37,211,102,0.4)'">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.122 1.526 5.855L0 24l6.302-1.506A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.37l-.36-.214-3.732.892.936-3.618-.235-.372A9.818 9.818 0 1112 21.818z"/>
+    </svg>
+  </a>
+
+  <!-- Tooltip emergente -->
+  <div id="wsp-tooltip" style="
+    position: fixed;
+    bottom: 38px;
+    right: 96px;
+    z-index: 998;
+    background: #1a1830;
+    color: #f0eeea;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.82rem;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(37,211,102,0.3);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.4s, transform 0.4s;
+    pointer-events: none;
+  ">¿Necesitas ayuda? 💬</div>
+
+  <script>
+    // WhatsApp tooltip automático
+    setTimeout(() => {
+      const t = document.getElementById('wsp-tooltip');
+      t.style.opacity = '1';
+      t.style.transform = 'translateX(0)';
+      setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(8px)'; }, 4000);
+    }, 3000);
+
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Form submit → Formspree (correo) + WhatsApp
+    async function sendForm(e) {
+      e.preventDefault();
+      const btn    = document.getElementById('btnSend');
+      const msg    = document.getElementById('formMsg');
+      const form   = document.getElementById('contactForm');
+      const nombre   = document.getElementById('nombre').value;
+      const servicio = document.getElementById('servicio').value || 'consulta general';
+      const mensaje  = document.getElementById('mensaje').value;
+
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+
+      try {
+        const res = await fetch('https://formspree.io/f/meenraqy', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nombre:   nombre,
+            email:    document.getElementById('email').value,
+            servicio: servicio,
+            mensaje:  mensaje
+          })
+        });
+
+        if (res.ok) {
+          msg.style.display = 'block';
+          msg.style.background = 'rgba(201,168,76,0.12)';
+          msg.style.border = '1px solid rgba(201,168,76,0.4)';
+          msg.style.color = '#e8c76a';
+          msg.textContent = '✅ Mensaje enviado. Te contactaremos pronto.';
+          form.reset();
+          // También abre WhatsApp con el resumen
+          const text = encodeURIComponent(`Hola, soy ${nombre}.\nServicio: ${servicio}.\n${mensaje}`);
+          setTimeout(() => window.open(`https://wa.me/51964528553?text=${text}`, '_blank'), 800);
+        } else {
+          throw new Error();
+        }
+      } catch {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(200,50,50,0.1)';
+        msg.style.border = '1px solid rgba(200,50,50,0.4)';
+        msg.style.color = '#f08080';
+        msg.textContent = '❌ Error al enviar. Contáctanos por WhatsApp directamente.';
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Enviar Consulta →';
+    }
+  </script>
+</body>
+</html>
